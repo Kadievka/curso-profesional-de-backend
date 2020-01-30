@@ -1,8 +1,26 @@
+const express= require('express');
 const sqlite3 = require('sqlite3');
-//objeto que haga una conexión a la BD y podamos manipularla
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 let db = new sqlite3.Database('proyecto-backend');
-//let db = new sqlite3.Database(':memory'); // para una BD anónima para pruebas iniciales
 
-db.run('CREATE TABLE tasks(id int AUTO_INCREMENT, description varchar(255))');//correr una consulta SQL
+//db.run('CREATE TABLE tasks(id int AUTO_INCREMENT, description varchar(255))');//correr una consulta SQL
 
-db.close();//cerrar la conexion
+app.post('/pendientes', function(req, resp){
+    db.run("INSERT INTO tasks (description) VALUES ('Hola mundo')");
+    resp.send('Inserción finalizada');
+});
+
+
+
+app.listen(3000);
+
+process.on('SIGINT', function(){//este objeto nos permite escuchar eventos del proceso
+    console.log('Adiós - Atte. El Servidor');
+    db.close();//cerrar la conexion
+    process.exit();//termina el servidor de node
+});
