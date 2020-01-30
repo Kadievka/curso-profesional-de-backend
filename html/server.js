@@ -1,13 +1,16 @@
-const express = require ('express'); //importando la librería de express
+const express = require ('express');
 
-const app = express(); // objeto app con el que definimos rutas
+const app = express();
 
-app.set('view engine', 'ejs');// hay que hacerlo para que sepa que es un motor de vistas lo que vamos a enviar y cuál es
+app.set('view engine', 'ejs');
 
-app.use('/assets', express.static('assets'));
+app.use('/assets', express.static('assets',{
+    etag: false,
+    maxAge: '5h'// valor máximo es 1 año para que el caché expire
+}));
 
 app.get('/', function (req, resp) {
-    resp.render('index')//método para enviar una vista después que se configura el motor de vistas
+    resp.render('index')
 });
 
-app.listen(3000);// ponerlo en el puerto 3000
+app.listen(3000);
