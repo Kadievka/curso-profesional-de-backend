@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
+    "username": null,
     "password": null,
-    "database": "database_development",
+    "database": "proyecto-backend",
     "host": "127.0.0.1",
-    "dialect": "mysql",
+    "dialect": "sqlite",
+    "storage": "proyecto-backend.sqlite3",
     "operatorsAliases": false
   },
   "test": {
