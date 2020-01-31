@@ -7,4 +7,6 @@ router.route('/tasks').get(TasksController.index).post(TasksController.create);
 
 router.get('/tasks/new', TasksController.new);//es la ruta a la que irá nustro formulario por eso solo es get
 
+router.route('/tasks/:id').get(TasksController.show);//wildcard
+
 module.exports = router;
