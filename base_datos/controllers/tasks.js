@@ -1,8 +1,10 @@
-const Task = require('../models').Task //así importamos todos modelos y específicamente el modelo Task
+const Task = require('../models').Task
 
 module.exports = {
-    home: function(){// claves del nombre con las que se identificarán las funciones
-                     //estas funciones son manejadoras d epeticiones http
-
+    home: function(req, resp){
+        Task.findAll().then(function(tasks){
+            resp.render('../views/tasks/index.pug', {tasks: tasks}); 
+            
+        });
     }
-}
+};
