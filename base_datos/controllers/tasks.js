@@ -10,5 +10,8 @@ module.exports = {
             resp.json(err);
             console.log(err);
         });
+    },
+    new: function(req,resp){
+        resp.render('../views/tasks/new.pug');
     }
 };
