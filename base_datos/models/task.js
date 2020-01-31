@@ -8,6 +8,5 @@ module.exports = (sequelize, DataTypes) => {
   // Task.associate = function(models) {
   //   associations can be defined here
   // };
-  console.log(Task);
   return Task;
 };

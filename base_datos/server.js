@@ -7,19 +7,14 @@ const tasks = require('./controllers/tasks.js');// importo el controlador de tas
 
 const app = express();
 
+const tasksRoutes = require('./routes/tasks_routes'); //importar las rutas
+
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(tasksRoutes);
 
 //Sequelize se va a conectar por su cuenta//
 
 app.set('view-engine', 'pug');
-
-//AQUI VAN MIS RUTAS
-app.get('/tasks', tasks.home); // le damos el controlador que importamos.nombre de la funcion que nos retorna los datos
-//FINALIZAN MIS RUTAS
-
-app.post('/pendientes', function(req, resp){
-    //db.run(`INSERT INTO tasks (description) VALUES (?)`, req.body.description);
-    resp.send('Inserción finalizada');
-});
 
 app.listen(3000);
