@@ -3,7 +3,7 @@ let TasksController = require('../controllers/tasks'); //esto es un objeto JSON 
 
 let router = express.Router();
 
-router.route('/tasks').get(TasksController.create).post(TasksController.create);
+router.route('/tasks').get(TasksController.index).post(TasksController.create);
 
 router.get('/tasks/new', TasksController.new);//es la ruta a la que irá nustro formulario por eso solo es get
 
