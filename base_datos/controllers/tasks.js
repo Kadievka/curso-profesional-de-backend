@@ -1,12 +1,12 @@
 const Task = require('../models').Task
 
 module.exports = {
-    index: function(req, resp){
+    index: function(req, res){
         Task.findAll().then(tasks=>{
             //resp.json(tasks);
-            resp.render('../views/tasks/index.pug', {task});
+            res.render('../views/tasks/index.pug', {task});
         }).catch(err=>{
-            resp.json(err);
+            res.json(err);
             console.log(err);
         });
     },
@@ -20,17 +20,20 @@ module.exports = {
             console.log(err);
         });
     },
-    create: function(req, resp){
+    create: function(req, res){
         Task.create({
             description: req.body.description
         }).then(result=>{
-            resp.json(result);
+            res.json(result);
         }).catch(err=>{
-            resp.json(err);
+            res.json(err);
             console.log(err);
         });
     },
-    new: function(req,resp){
-        resp.render('../views/tasks/new.pug');
+    update: function(){
+
+    },
+    new: function(req,res){
+        res.render('../views/tasks/new.pug');
     }
 };
