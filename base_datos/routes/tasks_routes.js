@@ -1,12 +1,14 @@
 const express = require('express');
-let TasksController = require('../controllers/tasks'); //esto es un objeto JSON con varios métodos que manejan peticiones http
+let TasksController = require('../controllers/tasks'); 
 
 let router = express.Router();
 
 router.route('/tasks').get(TasksController.index).post(TasksController.create);
 
-router.get('/tasks/new', TasksController.new);//es la ruta a la que irá nuestro formulario por eso solo es get
+router.get('/tasks/new', TasksController.new);
 
-router.route('/tasks/:id').get(TasksController.show).put(TasksController.update);//wildcard
+router.get('/tasks/:id/edit', TasksController.edit);
+
+router.route('/tasks/:id').get(TasksController.show).put(TasksController.update);
 
 module.exports = router;

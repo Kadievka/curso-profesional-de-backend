@@ -2,18 +2,19 @@ const express= require('express');
 const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const methodOverride = require('method-override');// es un middleware
 
-const tasks = require('./controllers/tasks.js');// importo el controlador de tasks
+const tasks = require('./controllers/tasks.js');
 
 const app = express();
 
-const tasksRoutes = require('./routes/tasks_routes'); //importar las rutas
+const tasksRoutes = require('./routes/tasks_routes'); 
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(tasksRoutes);
+app.use(methodOverride('_method'));
 
-//Sequelize se va a conectar por su cuenta//
+app.use(tasksRoutes);
 
 app.set('view-engine', 'pug');
 
