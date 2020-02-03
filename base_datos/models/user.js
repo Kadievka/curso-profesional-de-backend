@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       user.authenticatePassword(password);
       return user.authenticatePassword(password).then(valid=>{
         if(valid) return user;
-        return null
+        return null;
       });
     });
   };
@@ -32,11 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.authenticatePassword = function(password){
     return new Promise((res,rej)=>{
 
-      //console.log( 'pasword= ' + password + ' password_hash= ' + this.password_hash);
-
       bcrypt.compare(password, this.password_hash, function(err, valid){
-
-        //console.log('valid= ' + valid);
         
         if(err) return rej (err);
 
