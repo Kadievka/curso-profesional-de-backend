@@ -3,7 +3,7 @@ const Task = require('../models').Task
 module.exports = {
     index: function(req, res){
         Task.findAll().then(tasks=>{
-            res.render('../views/tasks/index.pug', {task});
+            res.render('../views/tasks/index.pug', {tasks});
         }).catch(err=>{
             res.json(err);
             console.log(err);
@@ -20,6 +20,18 @@ module.exports = {
     edit: function(req,res){
         Task.findByPk(req.params.id).then(function(task){
             res.render('../views/tasks/edit.pug', {task});
+        }).catch(err=>{
+            res.json(err);
+            console.log(err);
+        });
+    },
+    destroy: function(req,res){
+        Task.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(cuantosElementosEliminados){
+            res.redirect('/tasks');
         }).catch(err=>{
             res.json(err);
             console.log(err);
