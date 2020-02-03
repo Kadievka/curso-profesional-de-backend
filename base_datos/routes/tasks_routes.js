@@ -5,8 +5,8 @@ let router = express.Router();
 
 router.route('/tasks').get(TasksController.index).post(TasksController.create);
 
-router.get('/tasks/new', TasksController.new);//es la ruta a la que irá nustro formulario por eso solo es get
+router.get('/tasks/new', TasksController.new);//es la ruta a la que irá nuestro formulario por eso solo es get
 
-router.route('/tasks/:id').get(TasksController.show).put();//wildcard
+router.route('/tasks/:id').get(TasksController.show).put(TasksController.update);//wildcard
 
 module.exports = router;

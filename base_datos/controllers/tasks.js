@@ -30,8 +30,15 @@ module.exports = {
             console.log(err);
         });
     },
-    update: function(){
-
+    update: function(req, res){
+                id: req.params.id// este método una promesa que evalua un arreglo con los valores: 1 contador de cuantos registros fueron actualizados
+                Task.update({description: req.body.description},{ // 2 el segundo arreglo con los registros que fueron actualizados
+            where: {
+            }
+        }).then(function(response){
+            //res.json(response); // esta respuesta debe devolverme un 1 que representa el primer arreglo mencionado arriba
+            res.redirect('/tasks/' + req.params.id);
+        });
     },
     new: function(req,res){
         res.render('../views/tasks/new.pug');
