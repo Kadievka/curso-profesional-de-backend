@@ -6,10 +6,14 @@ module.exports = {//linea típica para iniciar un controlador
     }, 
     create: function(req, res){//linea típica para iniciar un controlador despliega el formulario
         User.login(req.body.email, req.body.password)
-                .then(user=> res.json(user))
-                .catch(err=>{
-                    res.json(err);
-                    console.log(res);
-                });
+            .then(user=> {
+                if(user){
+                    req.session.userId = user.id
+                }
+            })
+            .catch(err=>{
+                res.json(err);
+                console.log(res);
+            });
     }, 
 };

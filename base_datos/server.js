@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const methodOverride = require('method-override');
+const Session = require('express-session');
 
 const tasks = require('./controllers/tasks.js');
 
@@ -15,6 +16,12 @@ const sessionsRoutes = require('./routes/sessions_routes');// importar esta ruta
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(methodOverride('_method'));
+
+app.use(session({
+    secret: ['12342qreagfhagaef', '89654685ygdvadsggfergdfs'],
+    saveUninitialized: false,
+    resave: false
+}));
 
 app.use(tasksRoutes);
 app.use(registrationsRoutes);
