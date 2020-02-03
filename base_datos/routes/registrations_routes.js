@@ -1,6 +1,6 @@
 const express = require('express'); // líneas típicas de inicio
 
-let RegistraionsController = require('../controllers/registrations'); //Importar el controlador que conecta con la srutas
+let RegistrationsController = require('../controllers/registrations'); //Importar el controlador que conecta con la srutas
 
 let router = express.Router(); // líneas típicas de inicio
 

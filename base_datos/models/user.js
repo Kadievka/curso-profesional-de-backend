@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate(function(user, options){// para encritar el password hacer un hook
     return new Promise((res,rej)=>{
       if(user.password){
-        bcrypt.hash(user.password, 10, function(err, hash){
+        bcrypt.hash(user.password, null, null, function(err, hash){
           user.password_hash = hash;
           res();
         });
