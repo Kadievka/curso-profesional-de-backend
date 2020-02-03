@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }).then(user=>{//compara el texto plano en BD con el password encriptado nuevamente
       if( !user ) return null;
-      return user.authenticatePassword(password);
+      return user.authenticatePassword(password).then(valid=>{ valid ? user : null});
     });
   };
 
