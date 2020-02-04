@@ -13,7 +13,8 @@ const app = express();
 //***RUTAS
 const tasksRoutes = require('./routes/tasks_routes'); 
 const registrationsRoutes = require('./routes/registrations_routes');
-const sessionsRoutes = require('./routes/sessions_routes');// importar esta ruta nueva
+const sessionsRoutes = require('./routes/sessions_routes');
+const categoriesRoutes = require('./routes/categories_routes');// importar esta ruta nueva
 
 //***MIDDLEWARES
 const findUserMiddleware = require('./middlewares/find_user');
@@ -35,6 +36,7 @@ app.use(authUser);
 app.use(tasksRoutes);
 app.use(registrationsRoutes);
 app.use(sessionsRoutes);
+app.use(categoriesRoutes);
 
 
 

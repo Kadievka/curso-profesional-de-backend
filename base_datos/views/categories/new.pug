@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title Categorias
+  body
+      
+    form(action="/categories" method="POST")
+        textarea(name="title" placeholder="Título de la categoría")
+        input(type="color" name="color" value="#FFFFFF")
+        input(type="submit" value="Guardar")

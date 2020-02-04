@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title Categorias
+  body
+      
+    form(action=`/categories/${category.id}?_method=PUT` method="POST")
+        textarea(name="title" placeholder="Título de la categoría")=category.description
+        input(type="color" name="color" value=`${category.color}`)
+        input(type="submit" value="Guardar")
