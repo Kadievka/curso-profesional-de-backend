@@ -4,7 +4,7 @@ const User = require('../models').User
 module.exports = {
     index: function(req, res){
         Task.findAll().then(tasks=>{
-            res.render('../views/tasks/index.pug', {tasks});
+            res.render('../views/tasks/index.pug', {tasks: req.user.tasks}); //ahora pasamos la colección aquí, ya no son todas las tareas sino las tareas del usuario
         }).catch(err=>{
             res.json(err);
             console.log(err);

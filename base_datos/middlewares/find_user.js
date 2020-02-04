@@ -6,7 +6,13 @@ module.exports = function(req, res, next){
         return next();
     } 
 
-    User.findByPk(req.session.userId).then(user=>{
+    User.findByPk(req.session.userId, {//EAGER LOADING de las tareas de ese usuario
+        include:[
+            {
+                association: 'tasks'// lo hacemos porque ahora entregamos una colección
+            }
+        ]
+    }).then(user=>{
         if(user){
             req.user = user;
             next();
