@@ -1,3 +1,4 @@
+//***LIBRERIAS
 const express= require('express');
 const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
@@ -9,11 +10,14 @@ const tasks = require('./controllers/tasks.js');
 
 const app = express();
 
+//***RUTAS
 const tasksRoutes = require('./routes/tasks_routes'); 
 const registrationsRoutes = require('./routes/registrations_routes');
 const sessionsRoutes = require('./routes/sessions_routes');// importar esta ruta nueva
 
-const findUserMiddleware = require('./middlewares/find_user')
+//***MIDDLEWARES
+const findUserMiddleware = require('./middlewares/find_user');
+const authUser = require('./middlewares/auth_user');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -26,6 +30,7 @@ app.use(session({
 }));
 
 app.use(findUserMiddleware);
+app.use(authUser);
 
 app.use(tasksRoutes);
 app.use(registrationsRoutes);
