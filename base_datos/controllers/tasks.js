@@ -1,4 +1,5 @@
 const Task = require('../models').Task
+const User = require('../models').User
 
 module.exports = {
     index: function(req, res){
@@ -10,7 +11,14 @@ module.exports = {
         });
     },
     show: function(req,res){
-        Task.findByPk(req.params.id).then(function(task){
+        Task.findByPk(req.params.id, {//PARA HACER EAGER LOADING
+            include: [// cada elemento del arreglo es una relación
+                {
+                    model: User,
+                    as: 'user'
+                }
+            ]
+        }).then(function(task){
             res.render('../views/tasks/show.pug', {task});
         }).catch(err=>{
             res.json(err);
@@ -40,7 +48,7 @@ module.exports = {
     create: function(req, res){
         Task.create({
             description: req.body.description,
-            userId: req.user.id // ahora se guarda el id del usuario que ha iniciado sesión
+            userId: req.user.id 
         }).then(result=>{
             res.json(result);
         }).catch(err=>{
