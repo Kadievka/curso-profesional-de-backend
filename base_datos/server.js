@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const methodOverride = require('method-override');
-const Session = require('express-session');
+const session = require('express-session');
 
 const tasks = require('./controllers/tasks.js');
 
@@ -12,6 +12,8 @@ const app = express();
 const tasksRoutes = require('./routes/tasks_routes'); 
 const registrationsRoutes = require('./routes/registrations_routes');
 const sessionsRoutes = require('./routes/sessions_routes');// importar esta ruta nueva
+
+const findUserMiddleware = require('./middlewares/find_user')
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -23,9 +25,17 @@ app.use(session({
     resave: false
 }));
 
+app.use(findUserMiddleware);
+
 app.use(tasksRoutes);
 app.use(registrationsRoutes);
-app.use(sessionsRoutes); // importar esta ruta nueva
+app.use(sessionsRoutes);
+
+
+
+app.get('/', function(req, res){
+    res.render('home.pug', {user: req.user});
+});
 
 app.set('view-engine', 'pug');
 
