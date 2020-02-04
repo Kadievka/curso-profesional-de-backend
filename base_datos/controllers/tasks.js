@@ -16,7 +16,8 @@ module.exports = {
                 {
                     model: User,
                     as: 'user'
-                }
+                },
+                'categories'
             ]
         }).then(function(task){
             res.render('../views/tasks/show.pug', {task});
@@ -57,25 +58,24 @@ module.exports = {
         });
     },
     update: function(req, res){
-        Task.update({description: req.body.description},{
-            where: {
-                id: req.params.id
-            }
-        }).then(function(response){
-            res.redirect('/tasks/' + req.params.id);
+        // Task.update({description: req.body.description},{
+        //     where: {
+        //         id: req.params.id
+        //     }
+        // }).then(function(response){
+        //     res.redirect('/tasks/' + req.params.id);
+        // });
+        
+        //Busca la tarea , actualiza descripción y guarda, y con el objeto retornado por la promesa uso addCategories
+        let task = Task.findByPk(req.params.id).then(task => {
+            task.description = req.body.description;
+            task.save().then(()=>{
+            let categoryIds = req.body.categories.split(",");
+            task.addCategories(categoryIds).then(()=>{
+                res.redirect('/tasks/'+req.params.id);
+            });
+            });
         });
-        // let task = Task.findByPk(req.params.id)
-        //     .then(task=>{
-        //         task.description = req.body.description;
-        //         task=>save()
-        //             .then(()=>{
-        //                 let categoryIds = req.body.categories.split(","); //"1,2,3,4"
-        //                 task.addCategories(categoryIds)
-        //                     .then(()=>{
-        //                         res.redirect(`/tasks/${task.id}`);
-        //                     });
-        //             });
-        //     });
     },
     new: function(req,res){
         res.render('../views/tasks/new.pug');

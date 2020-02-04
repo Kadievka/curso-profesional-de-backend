@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   TaskCategories.associate = function(models) {
     
     TaskCategories.belongsToMany(models.Task, {
-      through: 'TaskCategories',
+      through: 'Tasks',
       as: 'tasks'
     });
 
