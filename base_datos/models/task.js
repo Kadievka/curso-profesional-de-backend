@@ -6,7 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Task.associate = function(models) {
-    Task.belongsTo(models.User);
+    Task.belongsTo(models.User, {// propiedad para renombrar la asociación
+      as: 'user'
+    });
   };
+
+  //ahora el objeto task tine una propiedad llamada User
+
   return Task;
 };
