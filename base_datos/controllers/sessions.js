@@ -9,7 +9,8 @@ module.exports = {
             .then(user=> {
                 if(user){
                     req.session.userId = user.id
-                    res.json(user);
+                    //res.json(user);
+                    res.redirect('/');
                 }
             })
             .catch(err=>{
@@ -17,4 +18,9 @@ module.exports = {
                 console.log(res);
             });
     }, 
+    destroy: function(req, res){//eliminará el userId y todos los valores para esa sesión
+        req.session.destroy(function(){
+            res.redirect('/sessions');
+        }); 
+    }
 };

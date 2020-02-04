@@ -6,6 +6,7 @@ let router = express.Router(); // líneas típicas de inicio
 
 router.route('/sessions', )
         .get(SessionsController.new)
-        .post(SessionsController.create); 
+        .post(SessionsController.create)
+        .delete(SessionsController.destroy); 
 
 module.exports = router; // líneas típicas de inicio
