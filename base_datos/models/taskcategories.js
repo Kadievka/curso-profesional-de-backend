@@ -4,13 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     taskId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER
   }, {});
+
   TaskCategories.associate = function(models) {
     
-    Task.belongsToMany(models.Task, {
+    TaskCategories.belongsToMany(models.Task, {
       through: 'TaskCategories',
       as: 'tasks'
     });
 
   };
+
   return TaskCategories;
 };
