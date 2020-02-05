@@ -4,15 +4,15 @@ const User = require('../models').User
 module.exports = {
     index: function(req, res){
         Task.findAll().then(tasks=>{
-            res.render('../views/tasks/index.pug', {tasks: req.user.tasks}); //ahora pasamos la colección aquí, ya no son todas las tareas sino las tareas del usuario
+            res.render('../views/tasks/index.pug', {tasks: req.user.tasks});
         }).catch(err=>{
             res.json(err);
             console.log(err);
         });
     },
     show: function(req,res){
-        Task.findByPk(req.params.id, {//PARA HACER EAGER LOADING
-            include: [// cada elemento del arreglo es una relación
+        Task.findByPk(req.params.id, {
+            include: [
                 {
                     model: User,
                     as: 'user'
@@ -50,30 +50,24 @@ module.exports = {
         Task.create({
             description: req.body.description,
             userId: req.user.id 
-        }).then(result=>{
-            res.json(result);
+        }).then(task=>{
+            let categoryIds = req.body.categories.split(",");
+            task.addCategories(categoryIds).then(()=>{
+                res.redirect('/tasks/');
+            });
         }).catch(err=>{
             res.json(err);
             console.log(err);
         });
     },
     update: function(req, res){
-        // Task.update({description: req.body.description},{
-        //     where: {
-        //         id: req.params.id
-        //     }
-        // }).then(function(response){
-        //     res.redirect('/tasks/' + req.params.id);
-        // });
-        
-        //Busca la tarea , actualiza descripción y guarda, y con el objeto retornado por la promesa uso addCategories
         let task = Task.findByPk(req.params.id).then(task => {
             task.description = req.body.description;
             task.save().then(()=>{
             let categoryIds = req.body.categories.split(",");
-            task.addCategories(categoryIds).then(()=>{
-                res.redirect('/tasks/'+req.params.id);
-            });
+                task.addCategories(categoryIds).then(()=>{
+                    res.redirect('/tasks/'+req.params.id);
+                });
             });
         });
     },
