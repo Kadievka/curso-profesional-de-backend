@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 
 app.set('view-engine', 'pug');
 
-let server = app.listen(process.env.PORT);
+let server = app.listen(process.env.port);
 
 let io = socketio(server); // comunicación de mensajes y eventos
 let sockets = {}; //inicializa vacío
