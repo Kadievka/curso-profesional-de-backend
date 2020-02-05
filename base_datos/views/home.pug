@@ -4,5 +4,15 @@ html
         title Bienvenido
     body
         h1= user.email
+        p
+            span Usuarios conectados: 
+            span#connected
         form(action='/sessions?_method=DELETE' method="POST")
             input(type="submit" value="Cerrar sesión")
+        script(src="/socket.io/socket.io.js")
+        script.
+            socket = io.connect();// si se pasa vacio es el websocket del servidor donde esta alojada esta pagina, si no, hay que pasarle la url del servidor
+            socket.on('users_count_updated', function(data){
+                console.log(data);
+                document.querySelector('#connected').innerHTML = data.count
+            });

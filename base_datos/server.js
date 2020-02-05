@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const socketio = require('socket.io');
 
 const tasks = require('./controllers/tasks.js');
 
@@ -39,11 +40,25 @@ app.use(sessionsRoutes);
 app.use(categoriesRoutes);
 
 
-
 app.get('/', function(req, res){
     res.render('home.pug', {user: req.user});
 });
 
 app.set('view-engine', 'pug');
 
-app.listen(3000);
+let server = app.listen(3000);
+
+let io = socketio(server); // comunicación de mensajes y eventos
+
+let usersCount = 0; //contador de usuarios conectados en tiempo real
+
+io.on('connection', function(socket){
+    usersCount++;
+
+    io.emit('users_count_updated', {count: usersCount}); // el primer argumento del mensaje es un identificador del mensaje, el segundo argumento son los datos
+
+    socket.on('disconnect', function(){
+        usersCount--;
+    });
+});
+
