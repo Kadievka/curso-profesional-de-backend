@@ -57,6 +57,11 @@ io.on('connection', function(socket){
 
     io.emit('users_count_updated', {count: usersCount}); // el primer argumento del mensaje es un identificador del mensaje, el segundo argumento son los datos
 
+    socket.on('new_task', function(data){//es necesario poner a socket a escuchar el mensaje enviado en la creación de una nueva task
+        console.log(data);
+        io.emit('new_task', {data: data}); //enviarselo a todos los clientes
+    });
+    
     socket.on('disconnect', function(){
         usersCount--;
     });

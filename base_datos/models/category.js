@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     color: DataTypes.STRING
   }, {});
   Category.associate = function(models) {
-    // associations can be defined here
+    Category.belongsToMany(models.Task, {
+      through: 'TaskCategories', // a través de... esta tabla
+      as: 'tasks'
+    });
   };
   return Category;
 };

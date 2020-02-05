@@ -14,5 +14,8 @@ html
             socket = io.connect();// si se pasa vacio es el websocket del servidor donde esta alojada esta pagina, si no, hay que pasarle la url del servidor
             socket.on('users_count_updated', function(data){
                 console.log(data);
-                document.querySelector('#connected').innerHTML = data.count
+                document.querySelector('#connected').innerHTML = data.count;
+            });
+            socket.on('new_task', function(data){
+                console.log('comunicacion exitosa ' + data);
             });
