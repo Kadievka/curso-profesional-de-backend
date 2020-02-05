@@ -62,3 +62,4 @@ io.on('connection', function(socket){
     });
 });
 
+const client = require('./realtime/client');
