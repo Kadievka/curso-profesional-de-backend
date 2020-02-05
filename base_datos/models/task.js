@@ -1,6 +1,6 @@
 'use strict';
 
-const socket = require('../realtime/client');//importo socket client
+const socket = require('../realtime/client.js');//importo socket client
 
 module.exports = (sequelize, DataTypes) => {
 

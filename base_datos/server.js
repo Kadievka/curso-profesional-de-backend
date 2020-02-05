@@ -59,7 +59,7 @@ io.on('connection', function(socket){
 
     socket.on('new_task', function(data){//es necesario poner a socket a escuchar el mensaje enviado en la creación de una nueva task
         console.log(data);
-        io.emit('new_task', {data: data}); //enviarselo a todos los clientes
+        io.emit('new_task', data); //enviarselo a todos los clientes
     });
     
     socket.on('disconnect', function(){
