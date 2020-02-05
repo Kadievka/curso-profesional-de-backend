@@ -53,7 +53,7 @@ module.exports = {
         }).then(task=>{
             let categoryIds = req.body.categories.split(",");
             task.addCategories(categoryIds).then(()=>{
-                res.redirect('/tasks/');
+                res.redirect('/tasks/' + task.id);
             });
         }).catch(err=>{
             res.json(err);
@@ -66,7 +66,7 @@ module.exports = {
             task.save().then(()=>{
             let categoryIds = req.body.categories.split(",");
                 task.addCategories(categoryIds).then(()=>{
-                    res.redirect('/tasks/'+req.params.id);
+                    res.redirect('/tasks/' + req.params.id);
                 });
             });
         });
