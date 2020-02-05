@@ -49,21 +49,40 @@ app.set('view-engine', 'pug');
 let server = app.listen(3000);
 
 let io = socketio(server); // comunicación de mensajes y eventos
+let sockets = {}; //inicializa vacío
 
 let usersCount = 0; //contador de usuarios conectados en tiempo real
 
 io.on('connection', function(socket){
+    
+    let userId = socket.request._query.loggeduser;//obtener el id del usuario conectado
+    if(userId) sockets[userId] = socket;
+    console.log(sockets);
+
+    //Actualiza usuarios conectados
     usersCount++;
 
     io.emit('users_count_updated', {count: usersCount}); // el primer argumento del mensaje es un identificador del mensaje, el segundo argumento son los datos
 
     socket.on('new_task', function(data){//es necesario poner a socket a escuchar el mensaje enviado en la creación de una nueva task
-        console.log(data);
+        if(data.userId){
+            let userSocket = sockets[data.userId];
+            if(!userSocket) return;
+        }
         io.emit('new_task', data); //enviarselo a todos los clientes
     });
     
     socket.on('disconnect', function(){
+
+        Object.keys(sockets).forEach(userId=>{
+            let s = sockets[userId];
+            if(s.id == socket.id) sockets[userId] = null;
+        });
+
+        console.log(sockets);
+
         usersCount--;
+        io.emit('users_count_updated', {count: usersCount});
     });
 });
 
