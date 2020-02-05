@@ -44,7 +44,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     User.hasMany(models.Task, {// propiedad para renombrar la asociación
-      as: 'tasks'
+      as: 'tasks',
+      foreignKey: 'userId'
     });
   };
 
